@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Square from './Square.jsx';
 import { calculateWinner } from './winner.js';
+import Mario from './mario.jsx';
+import Luigi from './luigi.jsx';
 
 export default function App(){
 	const [xIsNext, setXIsNext] = useState(true);
@@ -30,16 +32,20 @@ export default function App(){
 				{status}
 			</div>
 
-			<div  className={`grid grid-cols-3 gap-0 border-4 border-slate-800 shadow-2xl rounded-sm overflow-hidden transition-colors duration-500 ${borderColor}`}>
-				{squares.map((value,index)=>(
-					<Square
+			<div className='flex items-center justify-center gap-12'>
+				<Mario isActive={winner?winner==='X':xIsNext} isWinner={winner==='X'}/>
+				<div  className={`grid grid-cols-3 gap-0 border-4 rounded-xl shadow-2xl overflow-hidden transition-colors duration-500 ${borderColor}`}>
+					{squares.map((value,index)=>(
+						<Square
 						key = {index}
 						value = {value}
 						onSquareClick={() => handleClick(index)}
 						xIsNext={xIsNext}
 						winner={winner}
-					/>
-				))}
+						/>
+					))}
+				</div>
+				<Luigi isActive={winner ? winner === 'O' : !xIsNext} isWinner={winner==='O'}/>
 			</div>
 
 			<button
